@@ -1,0 +1,12 @@
+[mysqld]
+datadir=/var/lib/mysqld
+socket={{ mysql_socket }}
+user=root
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+port={{ mysql_port }}
+bind-address={{ sqlserver_ip }}
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid

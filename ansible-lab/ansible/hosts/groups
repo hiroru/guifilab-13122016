@@ -1,0 +1,9 @@
+[tag_ansibleNodeType_web]
+
+[tag_ansibleNodeType_sql]
+
+[web:children]
+tag_ansibleNodeType_web
+
+[sql:children]
+tag_ansibleNodeType_sql

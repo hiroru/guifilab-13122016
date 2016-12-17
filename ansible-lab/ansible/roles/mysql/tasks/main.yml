@@ -1,0 +1,57 @@
+---
+# This playbook will install MySQL and create db, db user and give permissions.
+
+- name: Install MySQL package
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+   - mysql-server
+   - "MySQL-python{{ python_ver }}"
+
+- name: Create Mysql configuration file
+  template:
+    src: my.cnf.j2
+    dest: "{{ mysql_cnf }}"
+  notify:
+  - Restart mysql
+
+- name: Create MySQL log file
+  file:
+    path: "/var/log/mysqld.log"
+    state: touch
+    owner: mysql
+    group: mysql
+    mode: 0775
+
+- name: Start MySQL Service
+  service:
+    name: mysqld
+    state: started
+    enabled: yes
+
+- name: Copy .my.cnf file with root password credentials
+  template:
+    src: root.my.cnf.j2
+    dest: "/root/.my.cnf"
+    owner: root
+    mode: 0600
+
+- name: Create WordPress database
+  mysql_db:
+    login_user: root
+    name: "{{ wp_db_name }}"
+    state: present
+
+- name: Create WordPress database user
+  mysql_user:
+    login_user: root
+    name: "{{ wp_db_user }}"
+    password: "{{ wp_db_password }}"
+    priv: "{{ wp_db_name }}.*:ALL"
+    host: "%"
+    state: present
+#
+# - name: Echo MySQL server IP
+#   debug:
+#     msg: "System {{ inventory_hostname }} has ip {{ sqlserver_ip }}"

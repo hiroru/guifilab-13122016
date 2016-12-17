@@ -1,1 +1,6 @@
-aws_keys
+*.tfstate
+*.backup
+.DS_Store
+provision.sh
+ssh.cfg
+*.retry

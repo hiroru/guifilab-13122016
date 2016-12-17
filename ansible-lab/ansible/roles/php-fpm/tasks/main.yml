@@ -1,0 +1,33 @@
+---
+- name: Install php-fpm and deps
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - php
+    - php-fpm
+    - php-enchant
+    - php-mbstring
+    - php-mysql
+    - php-process
+    - php-xml
+
+- name: Create wordpress root directory
+  file:
+    path: "{{ wp_website_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Disable default pool
+  command: mv "/etc/php-fpm.d/www.conf" "/etc/php-fpm.d/www.disabled"
+  args:
+    creates: "/etc/php-fpm.d/www.disabled"
+  notify: Restart php-fpm
+
+- name: Copy php-fpm configuration
+  template:
+    src: wordpress.conf.j2
+    dest: "/etc/php-fpm.d/wordpress.conf"
+  notify: Restart php-fpm

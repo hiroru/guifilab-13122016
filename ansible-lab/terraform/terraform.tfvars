@@ -1,0 +1,7 @@
+domain_name = "sbarrosolab.net"
+hosted_zone_id = "ZTQEGESP1GN1X"
+shared_credentials_file = "/Users/sergibarroso/.aws/credentials"
+profile = "cr-lab-session"
+region = "eu-central-1"
+zone = "eu-central-1a"
+instance_type = "t2.micro"

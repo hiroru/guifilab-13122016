@@ -1,0 +1,9 @@
+---
+
+- name: Install python
+  tags: bootstrap
+  raw: "yum install -y python{{ python_ver }}"
+  become: true
+  retries: 10
+  delay: 20
+  # If you run this playbook immediately after Terraform, ssh may not be ready to respond yet

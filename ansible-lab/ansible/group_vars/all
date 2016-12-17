@@ -1,0 +1,23 @@
+---
+
+# Python version
+python_ver: 27
+
+# Disable All Updates
+# By default automatic updates are enabled, set this value to true to disable all automatic updates
+auto_up_disable: false
+
+# Define Core Update Level
+# true  = Development, minor, and major updates are all enabled
+# false = Development, minor, and major updates are all disabled
+# minor = Minor updates are enabled, development, and major updates are disabled
+core_update_level: true
+
+# These are the WordPress database settings
+wp_db_name: wordpress
+wp_db_user: wordpress
+wp_db_password: BHiUoXaK&jgmwkxiv7pN9q7mk
+
+# Get servers IPs
+webserver_ip: "{{ hostvars[groups['web'][0]]['ansible_eth0']['ipv4']['address'] }}"
+sqlserver_ip: "{{ hostvars[groups['sql'][0]]['ansible_eth0']['ipv4']['address'] }}"

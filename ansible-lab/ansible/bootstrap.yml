@@ -1,0 +1,6 @@
+---
+
+- hosts: all
+  gather_facts: False # As Python is not yet installed, we cannot gather host facts
+  roles:
+  - bootstrap

@@ -1,0 +1,50 @@
+---
+
+- name: Download WordPress
+  get_url:
+    url: "http://wordpress.org/wordpress-{{ wp_version }}.tar.gz"
+    dest: "/srv/wordpress-{{ wp_version }}.tar.gz"
+    sha256sum: "{{ wp_sha256sum }}"
+
+- name: Extract archive
+  unarchive:
+    src: "/srv/wordpress-{{ wp_version }}.tar.gz"
+    dest: "/srv/"
+    remote_src: yes
+
+- name: Add group "wordpress"
+  group:
+    name: wordpress
+
+- name: Add user "wordpress"
+  user:
+    name: wordpress
+    group: wordpress
+    home: "/srv/wordpress/"
+
+- name: Fetch random salts for WordPress config
+  uri:
+    url: "https://api.wordpress.org/secret-key/1.1/salt/"
+    return_content: yes
+  delegate_to: 127.0.0.1
+  register: "wp_salt"
+  become: no
+
+- name: Copy WordPress config file
+  template:
+    src: wp-config.php.j2
+    dest: "/srv/wordpress/wp-config.php"
+
+- name: Change ownership of WordPress installation
+  file:
+    path: "/srv/wordpress/"
+    owner: wordpress
+    group: wordpress
+    state: directory
+    recurse: yes
+
+- name: Start php-fpm Service
+  service:
+    name: php-fpm
+    state: started
+    enabled: yes

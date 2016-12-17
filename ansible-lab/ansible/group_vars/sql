@@ -1,0 +1,7 @@
+---
+
+# MySQL settings
+mysqlservice: mysqld
+mysql_port: 3306
+mysql_cnf: "/etc/my.cnf"
+mysql_socket: "/var/lib/mysqld/mysql.sock"

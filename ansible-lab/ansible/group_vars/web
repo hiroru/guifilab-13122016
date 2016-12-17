@@ -1,0 +1,17 @@
+---
+
+# Wordpress package
+wp_version: 4.7
+wp_sha256sum: 7eae27ff70716dae2d2ba58280f2832fd70a208c9cdaf29ab36ac789c14d6977
+
+# Wordpress Site configuration
+wp_website_name: sbarrosolab.net
+wp_website_path: "/srv/wordpress/"
+
+# This is used for the nginx server configuration, but access to the
+# WordPress site is not restricted by a named host.
+nginx_port: 80
+
+#Nginx config
+nginx_maxcon: 1024
+nginx_server_hostname: "{{ wp_website_name }}"
