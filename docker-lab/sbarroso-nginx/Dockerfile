@@ -8,4 +8,4 @@ RUN echo "Europe/Berlin" > /etc/timezone && dpkg-reconfigure -f noninteractive t
 COPY files/nginx.conf /etc/nginx/nginx.conf
 COPY files/default.conf /etc/nginx/conf.d/default.conf
 
-# docker run -d --name=sbarroso-nginx --link=sbarroso-fpm:sbarroso-fpm-svc --link=sbarroso-mysql:sbarroso-mysql-svc -p 8080:80 sbarroso-nginx
+# docker run -d --name=sbarroso-nginx --link=sbarroso-fpm:sbarroso-fpm-svc --link=sbarroso-mysql:sbarroso-mysql-svc -p 8080:80 hiroru/sbarroso-nginx:latest
